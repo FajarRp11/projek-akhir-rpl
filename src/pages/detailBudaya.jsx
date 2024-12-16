@@ -41,7 +41,6 @@ const DetailBudaya = () => {
     deskripsi_budaya: deskripsi,
     sejarah,
     image_path: gambar,
-    src,
   } = budaya;
 
   return (
@@ -50,25 +49,16 @@ const DetailBudaya = () => {
         <FaArrowLeft className="inline-block mr-2" />
         Kembali
       </LinkButton>
-      <div className="grid grid-cols-12 gap-4">
+      <div className={`grid gap-4 ${gambar ? 'grid-cols-12' : 'grid-cols-1'}`}>
+        {gambar && (
         <div className="md:col-span-4 col-span-12">
           <img
             src={gambar}
             alt={nama}
             className="mb-4 w-full h-auto object-cover rounded-md"
           />
-          {src && (
-            <iframe
-              src={src}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-              className="w-full aspect-video rounded-md"
-            ></iframe>
-          )}
         </div>
+        )}
         <div className="md:col-span-8 col-span-12">
           <h1 className="font-bold text-2xl mb-4">{nama}</h1>
           <p className="whitespace-pre-line text-justify mb-4">{deskripsi}</p>

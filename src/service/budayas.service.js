@@ -3,7 +3,7 @@ import axios from "axios";
 export const getBudayas = async () => {
   try {
     const response = await axios.get(
-      "https://far-pheasant-36-170f0758shwj.deno.dev/budaya"
+      "https://far-pheasant-36-2d2tg577ts1w.deno.dev/budaya"
     );
     return response.data; // Mengembalikan data budaya
   } catch (error) {
@@ -14,7 +14,7 @@ export const getBudayas = async () => {
 
 export const getDetailBudaya = (id, callback) => {
   axios
-    .get(`https://far-pheasant-36-170f0758shwj.deno.dev/budaya/${id}`)
+    .get(`https://far-pheasant-36-2d2tg577ts1w.deno.dev/budaya/${id}`)
     .then((respon) => {
       callback(respon.data);
     })
@@ -26,7 +26,7 @@ export const getDetailBudaya = (id, callback) => {
 export const updateBudaya = async (id, data) => {
   try {
     const response = await axios.post(
-      `https://far-pheasant-36-170f0758shwj.deno.dev/budaya/${id}`,
+      `https://far-pheasant-36-2d2tg577ts1w.deno.dev/budaya/${id}`,
       data
     );
     return response.data;
@@ -39,7 +39,7 @@ export const updateBudaya = async (id, data) => {
 export const addBudaya = async (data) => {
   try {
     const response = await axios.post(
-      "https://far-pheasant-36-170f0758shwj.deno.dev/budaya",
+      "https://far-pheasant-36-2d2tg577ts1w.deno.dev/budaya",
       data
     );
     return response.data;
@@ -52,7 +52,7 @@ export const addBudaya = async (data) => {
 export const deleteBudaya = async (id) => {
   try {
     const response = await axios.delete(
-      `https://far-pheasant-36-170f0758shwj.deno.dev/budaya/${id}`
+      `https://far-pheasant-36-2d2tg577ts1w.deno.dev/budaya/${id}`
     );
     return response.data;
   } catch (error) {

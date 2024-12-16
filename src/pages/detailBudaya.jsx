@@ -13,7 +13,7 @@ const DetailBudaya = () => {
     const fetchDetailBudaya = async () => {
       try {
         setLoading(true); // Set loading to true before fetching data
-        const data = await new Promise((resolve, reject) => {
+        const data = await new Promise((resolve) => {
           getDetailBudaya(id, resolve);
         });
         setBudaya(data);

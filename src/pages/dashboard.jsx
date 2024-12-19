@@ -102,7 +102,7 @@ const Dashboard = () => {
                       {deskripsi.substring(0, 150)}...
                     </td>
                     <td className="border border-gray-300 px-4 py-2">
-                      <img src={gambar} alt={nama} className="w-36" />
+                      { gambar && <img src={gambar} alt={nama} className="w-36" /> }
                     </td>
                     <td className="border border-gray-300 px-4 py-2 text-center">
                       <button

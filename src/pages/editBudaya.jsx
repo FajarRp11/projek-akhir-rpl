@@ -36,10 +36,22 @@ const EditBudaya = () => {
     setBudaya((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setBudaya((prevState) => ({ ...prevState, image_path: file }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await updateBudaya(id, budaya);
+      const formData = new FormData();
+      formData.append("nama_budaya", budaya.nama_budaya);
+      formData.append("deskripsi_budaya", budaya.deskripsi_budaya);
+      if (budaya.image_path) {
+        formData.append("image", budaya.image_path); // Append the file if selected
+      }
+
+      await updateBudaya(id, formData); // Pass the FormData to the update function
       alert("Data berhasil diperbarui!");
       navigate("/dashboard"); // Kembali ke dashboard setelah berhasil
     } catch (err) {
@@ -93,17 +105,31 @@ const EditBudaya = () => {
             className="block text-gray-700 font-bold mb-2"
             htmlFor="image_path"
           >
-            URL Gambar
+            Upload Gambar
           </label>
+          {/* Display the current image if available */}
+          {budaya.image_path && (
+            <div className="mb-4">
+              <img
+                src={typeof budaya.image_path === "string" ? budaya.image_path : URL.createObjectURL(budaya.image_path)}
+                alt="Budaya Image"
+                className="max-w-[500px] mx-auto w-full h-auto mb-4"
+              />
+            </div>
+          )}
           <input
-            type="text"
+            type="file"
             id="image_path"
             name="image_path"
-            value={budaya.image_path}
-            onChange={handleChange}
+            onChange={handleFileChange}
             className="w-full border border-gray-300 p-2 rounded"
           />
         </div>
+        {error && (
+          <div className="text-red-500 text-sm mb-4">
+            <strong>Error:</strong> {error}
+          </div>
+        )}
         <div className="flex justify-between">
           <button
             type="submit"

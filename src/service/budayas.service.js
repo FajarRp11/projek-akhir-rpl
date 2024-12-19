@@ -3,7 +3,7 @@ import axios from "axios";
 export const getBudayas = async () => {
   try {
     const response = await axios.get(
-      "https://far-pheasant-36-170f0758shwj.deno.dev/budaya"
+      "https://far-pheasant-36.deno.dev/budaya"
     );
     return response.data; // Mengembalikan data budaya
   } catch (error) {
@@ -14,7 +14,7 @@ export const getBudayas = async () => {
 
 export const getDetailBudaya = (id, callback) => {
   axios
-    .get(`https://far-pheasant-36-170f0758shwj.deno.dev/budaya/${id}`)
+    .get(`https://far-pheasant-36.deno.dev/budaya/${id}`)
     .then((respon) => {
       callback(respon.data);
     })
@@ -23,25 +23,39 @@ export const getDetailBudaya = (id, callback) => {
     });
 };
 
-export const updateBudaya = async (id, data) => {
+export const updateBudaya = async (id, formData) => {
   try {
     const response = await axios.post(
-      `https://far-pheasant-36-170f0758shwj.deno.dev/budaya/${id}`,
-      data
+      `https://far-pheasant-36.deno.dev/budaya/${id}`,
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } }
     );
     return response.data;
   } catch (error) {
-    console.error("Error updating budaya:", error);
-    throw error;
+    throw new Error("Error updating Budaya: " + error.message);
   }
 };
 
 export const addBudaya = async (data) => {
   try {
+    const formData = new FormData();
+    formData.append("nama_budaya", data.nama_budaya);
+    formData.append("deskripsi_budaya", data.deskripsi_budaya);
+
+    if (data.image_path) {
+      formData.append("image", data.image_path);
+    }
+
     const response = await axios.post(
-      "https://far-pheasant-36-170f0758shwj.deno.dev/budaya",
-      data
+      "https://far-pheasant-36.deno.dev/budaya",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data", 
+        },
+      }
     );
+
     return response.data;
   } catch (error) {
     console.error("Error adding budaya:", error);
@@ -52,7 +66,7 @@ export const addBudaya = async (data) => {
 export const deleteBudaya = async (id) => {
   try {
     const response = await axios.delete(
-      `https://far-pheasant-36-170f0758shwj.deno.dev/budaya/${id}`
+      `https://far-pheasant-36.deno.dev/budaya/${id}`
     );
     return response.data;
   } catch (error) {

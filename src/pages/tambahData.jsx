@@ -8,7 +8,7 @@ const AddBudaya = () => {
   const [budaya, setBudaya] = useState({
     nama_budaya: "",
     deskripsi_budaya: "",
-    image_path: "",
+    image_path: null,
   });
   const [error, setError] = useState(null);
 
@@ -17,14 +17,19 @@ const AddBudaya = () => {
     setBudaya((prevState) => ({ ...prevState, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setBudaya((prevState) => ({ ...prevState, image_path: file }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await addBudaya(budaya);
       alert("Data berhasil ditambahkan!");
-      navigate("/dashboard"); // Kembali ke dashboard setelah berhasil
+      navigate("/dashboard");
     } catch (err) {
-      setError(err.message);
+      setError("Error: " + err.message);
     }
   };
 
@@ -71,17 +76,21 @@ const AddBudaya = () => {
             className="block text-gray-700 font-bold mb-2"
             htmlFor="image_path"
           >
-            URL Gambar
+            Upload Gambar
           </label>
           <input
-            type="text"
+            type="file"
             id="image_path"
             name="image_path"
-            value={budaya.image_path}
-            onChange={handleChange}
+            onChange={handleFileChange}
             className="w-full border border-gray-300 p-2 rounded"
           />
         </div>
+        {error && (
+          <div className="text-red-500 text-sm mb-4">
+            <strong>Error:</strong> {error}
+          </div>
+        )}
         <div className="flex justify-between">
           <button
             type="submit"
